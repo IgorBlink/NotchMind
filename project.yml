@@ -1,0 +1,71 @@
+name: NotchMind
+options:
+  bundleIdPrefix: com.igormartynyuk
+  deploymentTarget:
+    macOS: "13.0"
+  developmentLanguage: en
+  createIntermediateGroups: true
+  groupSortPosition: top
+  xcodeVersion: "15.0"
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    MACOSX_DEPLOYMENT_TARGET: "13.0"
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    SWIFT_STRICT_CONCURRENCY: minimal
+    ENABLE_USER_SCRIPT_SANDBOXING: NO
+    ENABLE_HARDENED_RUNTIME: YES
+    CODE_SIGN_STYLE: Automatic
+    CODE_SIGN_IDENTITY: "-"
+    DEAD_CODE_STRIPPING: YES
+    GCC_TREAT_WARNINGS_AS_ERRORS: NO
+packages:
+  KeyboardShortcuts:
+    url: https://github.com/sindresorhus/KeyboardShortcuts
+    from: "2.0.0"
+targets:
+  NotchMind:
+    type: application
+    platform: macOS
+    deploymentTarget: "13.0"
+    sources:
+      - Sources/NotchMind
+      - path: Resources
+        excludes:
+          - "Info.plist"
+    info:
+      path: Resources/Info.plist
+      properties:
+        LSUIElement: true
+        LSMinimumSystemVersion: "13.0"
+        CFBundleDisplayName: NotchMind
+        CFBundleName: NotchMind
+        NSAppleEventsUsageDescription: "NotchMind reads the frontmost browser's URL to attach source context to explanations and captures. No browsing history leaves your Mac."
+        NSAppleMusicUsageDescription: "NotchMind does not access Music; this entry is reserved for future HUD work."
+        NSSupportsAutomaticTermination: false
+        NSSupportsSuddenTermination: false
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.igormartynyuk.NotchMind
+        PRODUCT_NAME: NotchMind
+        CODE_SIGN_ENTITLEMENTS: Supporting/NotchMind.entitlements
+        INFOPLIST_FILE: Resources/Info.plist
+        GENERATE_INFOPLIST_FILE: NO
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        COMBINE_HIDPI_IMAGES: YES
+    dependencies:
+      - package: KeyboardShortcuts
+schemes:
+  NotchMind:
+    build:
+      targets:
+        NotchMind: all
+    run:
+      config: Debug
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release

@@ -1,0 +1,35 @@
+# Xcode
+build/
+DerivedData/
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+*.swp
+*.swo
+*~
+
+# SwiftPM
+.build/
+.swiftpm/configuration/
+.swiftpm/xcode/package.xcworkspace/xcshareddata/
+Package.resolved
+
+# xcodegen (project is generated, only project.yml is source of truth)
+*.xcodeproj
+!*.xcodeproj/README.md
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Secrets / local overrides
+.env
+*.local
+NotchMind.xcconfig.local
+
+# Build artifacts
+*.app
+*.dmg
+*.zip
+notchmind-release/

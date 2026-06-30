@@ -7,15 +7,19 @@ require per-app temporary exceptions that App Review rejects).
 
 ## Current entitlements (`Supporting/NotchMind.entitlements`)
 
+The shipping file is intentionally minimal — with the sandbox off, none of the
+`com.apple.security.*` TCC entitlements are required. Apple Events, network,
+and file access are governed by **runtime TCC prompts** instead of entitlements.
+
 | Key | Value | Why |
 |---|---|---|
 | `com.apple.security.app-sandbox` | `false` | AX clipboard fallback + Apple Events to arbitrary browsers need this. |
-| `com.apple.security.automation.apple-events` | `true` | Send AppleScript to Safari/Chrome/Arc/Brave/Edge/Vivaldi for URL context. |
-| `com.apple.security.network.client` | `true` | Reach OpenAI / Anthropic / localhost Ollama. |
-| `com.apple.security.files.user-selected.read-write` | `true` | Future: let user pick a custom capture folder via NSOpenPanel. |
-| `com.apple.security.cs.allow-jit` | `false` | Not needed; hardened runtime stays strict. |
-| `com.apple.security.cs.allow-unsigned-executable-memory` | `false` | Not needed. |
-| `com.apple.security.cs.disable-library-validation` | `false` | Not needed — only loads system + signed Swift runtime. |
+
+That's it. The hardened-runtime flags (`cs.allow-jit`, `cs.allow-unsigned-executable-memory`,
+`cs.disable-library-validation`) are left **unset** for local debug builds so
+ad-hoc signing (`CODE_SIGN_IDENTITY = "-"`) works without friction. The
+notarization milestone flips `ENABLE_HARDENED_RUNTIME = YES` and re-adds the
+hardened-runtime keys (all `false`) — see "Notarization" below.
 
 ## TCC permissions (runtime, not entitlements)
 
